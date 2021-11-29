@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { ModalProps, SafeAreaView, StyleSheet, Platform } from 'react-native'
+import { ModalProps, SafeAreaView, StyleSheet, Platform, ViewStyle } from 'react-native'
 import { AnimatedModal } from './AnimatedModal'
 import { Modal } from './Modal'
 import { useTheme } from './CountryTheme'
@@ -15,16 +15,18 @@ export const CountryModal = ({
   children,
   withModal,
   disableNativeModal,
+  modalStyle,
   ...props
 }: ModalProps & {
   children: React.ReactNode
   withModal?: boolean
   disableNativeModal?: boolean
+  modalStyle?: ViewStyle
 }) => {
   const { backgroundColor } = useTheme()
   const { teleport } = React.useContext(CountryModalContext)
   const content = (
-    <SafeAreaView style={[styles.container, { backgroundColor }]}>
+    <SafeAreaView style={[styles.container, { backgroundColor }, modalStyle]}>
       {children}
     </SafeAreaView>
   )
@@ -47,7 +49,6 @@ export const CountryModal = ({
 
 CountryModal.defaultProps = {
   animationType: 'slide',
-  animated: true,
   withModal: true,
   disableNativeModal: false,
 }
